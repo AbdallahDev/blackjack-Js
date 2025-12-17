@@ -1,3 +1,4 @@
+var gameStarted = false;
 var hasBlackJack = false;
 var isAlive = true;
 var msg = "";
@@ -9,17 +10,14 @@ const sumEl = document.querySelector("#sum-el");
 const cardsEl = document.querySelector("#cards-el");
 cardsEl.textContent = "Cards: ";
 
-function cardsSum() {
-  sum = cards.reduce((accumulator, current) => accumulator + current, 0);
-  sumEl.textContent = "Sum: " + sum;
-}
-
 function startGame() {
-  for (let i = 0; i < 2; i++) {
-    drawCard();
+  if (!gameStarted) {
+    for (let i = 0; i < 2; i++) {
+      drawCard();
+    }
+    renderGame();
+    gameStarted = true;
   }
-  console.log(cards);
-  renderGame();
 }
 
 function renderGame() {
@@ -33,8 +31,12 @@ function renderGame() {
     msg = "You're out of the game!";
     isAlive = false;
   }
-  //   console.log(sum, msg);
   messageEl.textContent = msg;
+}
+
+function cardsSum() {
+  sum = cards.reduce((accumulator, current) => accumulator + current, 0);
+  sumEl.textContent = "Sum: " + sum;
 }
 
 function drawCard() {
