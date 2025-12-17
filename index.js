@@ -15,13 +15,17 @@ const messageEl = document.getElementById("message-el");
 const sumEl = document.querySelector("#sum-el");
 const cardsEl = document.querySelector("#cards-el");
 
+function cardsSum() {
+  sum = cards.reduce((accumulator, current) => accumulator + current, 0);
+  sumEl.textContent = "Sum: " + sum;
+}
+
 function startGame() {
   renderGame();
 }
 
 function renderGame() {
-    
-  sumEl.textContent = "Sum: " + sum;
+  cardsSum();
   cardsEl.textContent = "Cards: " + firstCard + " " + secondCard;
 
   if (sum < 21) msg = "Do you want to draw a new card?";
