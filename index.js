@@ -21,6 +21,10 @@ const sumEl = document.querySelector("#sum-el");
 const cardsEl = document.querySelector("#cards-el");
 
 function startGame() {
+  renderGame();
+}
+
+function renderGame() {
   sumEl.textContent = "Sum: " + sum;
   cardsEl.textContent = "Cards: " + firstCard + " " + secondCard;
 
@@ -37,5 +41,14 @@ function startGame() {
 }
 
 function drawCard() {
-    console.log("New card")
+  const randomNum = Math.random();
+  const newCard = Math.floor(randomNum * range) + min;
+  console.log(randomNum, Math.floor(randomNum * range), newCard);
+
+  sum += newCard;
+  sumEl.textContent = "Sum: " + sum;
+  cardsEl.textContent =
+    "Cards: " + firstCard + " " + secondCard + " " + newCard;
+
+  renderGame();
 }
