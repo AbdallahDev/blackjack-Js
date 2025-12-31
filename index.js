@@ -1,4 +1,3 @@
-var gameStarted = false;
 var hasBlackJack = false;
 var isAlive = true;
 var stillPlaying = false;
@@ -12,7 +11,7 @@ const cardsEl = document.querySelector("#cards-el");
 cardsEl.textContent = "Cards: ";
 
 function startGame() {
-  if (!gameStarted && !stillPlaying) {
+  if (!stillPlaying) {
     stillPlaying = true;
     resetPlayerVars();
     cardsEl.textContent = "Cards: ";
@@ -20,13 +19,11 @@ function startGame() {
     for (let i = 0; i < 2; i++) {
       drawCard();
     }
-    renderGame();
-    gameStarted = true;
   }
 }
 
 function renderGame() {
-  cardsSum();
+  var sum = cardsSum();
 
   if (sum < 21) msg = "Do you want to draw a new card?";
   else if (sum === 21) {
@@ -46,20 +43,26 @@ function renderGame() {
 function cardsSum() {
   sum = cards.reduce((accumulator, current) => accumulator + current, 0);
   sumEl.textContent = "Sum: " + sum;
+  return sum;
 }
 
 function drawCard() {
   if (stillPlaying) {
-    const min = 2;
-    const max = 11;
-    const range = max - min + 1;
-    const randomNum = Math.random();
-    const newCard = Math.floor(randomNum * range) + min;
+    const newCard = newCardF();
     cards.push(newCard);
 
     cardsEl.append(newCard + " ");
     renderGame();
   }
+}
+
+function newCardF() {
+  const min = 2;
+  const max = 13;
+  const range = max - min + 1;
+  const randomNum = Math.random();
+  const randomCard = Math.floor(randomNum * range) + min;
+  return randomCard;
 }
 
 function resetPlayerVars() {
@@ -69,5 +72,4 @@ function resetPlayerVars() {
 
 function resetGameVars() {
   stillPlaying = false;
-  gameStarted = false;
 }
