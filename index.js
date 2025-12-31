@@ -1,5 +1,4 @@
 var hasBlackJack = false;
-var isAlive = true;
 var stillPlaying = false;
 var msg = "";
 var cards = [];
@@ -33,7 +32,6 @@ function renderGame() {
     resetGameVars();
   } else {
     msg = "You're out of the game!";
-    isAlive = false;
     resetPlayerVars();
     resetGameVars();
   }
@@ -57,12 +55,15 @@ function drawCard() {
 }
 
 function newCardF() {
-  const min = 2;
+  const min = 1;
   const max = 13;
   const range = max - min + 1;
   const randomNum = Math.random();
   const randomCard = Math.floor(randomNum * range) + min;
-  return randomCard;
+  console.log(randomCard);
+  if (randomCard === 1) return 11;
+  else if (randomCard > 10 ) return 10;
+  else return randomCard;
 }
 
 function resetPlayerVars() {
